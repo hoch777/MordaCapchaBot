@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Mini App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://captcha-api.yandex.ru/captcha.js" async></script>
+    <style>
+        body {
+            background-color: var(--tg-theme-bg-color, #fff);
+            color: var(--tg-theme-text-color, #000);
+        }
+        .container {
+            padding: 20px;
+        }
+        .button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="captcha-container"></div>
+        <button id="submit-btn" class="button">Подтвердить</button>
+    </div>
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+
+        const captcha = new window.smartCaptcha({
+            sitekey: 'ysc1_MoSXvlY7jM05YCnm3Duk8xrXAkyuNoXVq3tQPoqQ0937aa92',
+            container: 'captcha-container',
+            hl: 'ru',
+            callback: token => {
+                document.getElementById('submit-btn').removeAttribute('disabled');
+            }
+        });
+
+        document.getElementById('submit-btn').addEventListener('click', () => {
+            const token = captcha.getToken();
+            if (token) {
+                tg.sendData(JSON.stringify({
+                    captchaToken: token
+                }));
+            }
+        });
+    </script>
+</body>
+</html>
