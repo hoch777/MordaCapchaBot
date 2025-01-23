@@ -1,4 +1,3 @@
-haBot/index.html -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,56 +9,20 @@ haBot/index.html -->
     <style>
         body {
             background-color: var(--tg-theme-bg-color, #fff);
-            color: var(--tg-theme-text-color, #000);
-        }
-        .container {
-            padding: 20px;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        .smart-captcha {
-            margin: 20px 0;
-        }
-        .button {
-            background: var(--tg-theme-button-color);
-            color: var(--tg-theme-button-text-color);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div 
-            id="captcha-container"
-            class="smart-captcha"
-            data-sitekey="ysc1_MoSXvlY7jM05YCnm3Duk8xrXAkyuNoXVq3tQPoqQ0937aa92"
-        ></div>
-        <button id="submit-btn" class="button" disabled>Подтвердить</button>
-    </div>
-
-    <script>
-        let tg = window.Telegram.WebApp;
-        tg.expand();
-
-        window.smartCaptcha.render('captcha-container', {
-            sitekey: 'ysc1_MoSXvlY7jM05YCnm3Duk8xrXAkyuNoXVq3tQPoqQ0937aa92',
-            callback: (token) => {
-                document.getElementById('submit-btn').removeAttribute('disabled');
-            }
-        });
-
-        document.getElementById('submit-btn').addEventListener('click', () => {
-            const token = window.smartCaptcha.getToken();
-            if (token) {
-                tg.sendData(JSON.stringify({
-                    captchaToken: token
-                }));
-            }
-        });
-    </script>
+    <div 
+        style="height: 100px"
+        id="captcha-container"
+        class="smart-captcha"
+        data-sitekey="ysc1_MoSXvlY7jM05YCnm3Duk8xrXAkyuNoXVq3tQPoqQ0937aa92"
+    ></div>
 </body>
 </html>
